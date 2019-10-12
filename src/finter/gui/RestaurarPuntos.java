@@ -13,16 +13,16 @@ import javax.swing.JPanel;
 
 import finter.Manager;
 
-public class Salir extends JDialog{
+public class RestaurarPuntos extends JDialog{
 
-	public Salir() {
+	public RestaurarPuntos() {
 		final JPanel panel = new JPanel();
 		this.setContentPane(panel);
 		panel.setLayout(null);
 		
 		disableParentButtons(Manager.getButtons());
 		
-		final JLabel lblNewLabel = new JLabel("\u00BFSalir de FINTER?");
+		final JLabel lblNewLabel = new JLabel("\u00BFRestaurar puntos?");
 		lblNewLabel.setBounds(10, 12, 134, 14);
 		panel.add(lblNewLabel);
 		

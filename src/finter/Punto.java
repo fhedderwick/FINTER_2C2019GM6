@@ -11,5 +11,17 @@ public class Punto {
 		this.x = x;
 		this.y = y;
 	}
+	
+	public Punto duplicar() {
+		return new Punto(x,y);
+	}
+
+	public BigDecimal getX() {
+		return x;
+	}
+	
+	public BigDecimal getY() {
+		return y;
+	}
 
 }

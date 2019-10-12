@@ -3,30 +3,31 @@ package finter.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import finter.Manager;
 import finter.Procesador;
-import finter.Punto;
 
 public class EspecializarPolinomio extends JDialog{
 	private JTextField textField;
 	private JTextField textField_1;
 
-	public EspecializarPolinomio(final List<JButton> buttons) {
+	public EspecializarPolinomio() {
 		setTitle("Especializar polinomio");
 		final JPanel panel = new JPanel();
 		this.setContentPane(panel);
 		panel.setLayout(null);
 		
-		disableParentButtons(buttons);
+		disableParentButtons(Manager.getButtons());
 		
 		final JLabel lblNewLabel = new JLabel("Especializar polinomio");
 		lblNewLabel.setBounds(10, 12, 84, 14);
@@ -74,22 +75,22 @@ public class EspecializarPolinomio extends JDialog{
 		});
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(final ActionEvent e) {
-				enableParentButtons(buttons);
+				restoreParentButtons(Manager.getButtonsAndInfo());
 				dispose();
 			}
 		});
 		
 	}
 
-	private void disableParentButtons(final List<JButton> buttons) {
+	private void disableParentButtons(final Set<JButton> buttons) {
 		for(final JButton b : buttons) {
 			b.setEnabled(false);
 		}
 	}
 	
-	private void enableParentButtons(final List<JButton> buttons) {
-		for(final JButton b : buttons) {
-			b.setEnabled(true);
+	private void restoreParentButtons(final Map<JButton,Boolean> buttons) {
+		for(final Entry<JButton, Boolean> entry : buttons.entrySet()) {
+			entry.getKey().setEnabled(entry.getValue());
 		}
 	}
 

@@ -3,29 +3,32 @@ package finter.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
+import finter.Manager;
 import finter.Punto;
 
 public class AgregarPunto extends JDialog{
 	private JTextField textField;
 	private JTextField textField_1;
 
-	public AgregarPunto(final List<JButton> buttons, final List<Punto> lista, final JScrollPane scrollPane) {
+	public AgregarPunto(final DefaultTableModel dtm) {
 		setTitle("Agregar punto");
 		final JPanel panel = new JPanel();
 		this.setContentPane(panel);
 		panel.setLayout(null);
 		
-		disableParentButtons(buttons);
+		disableParentButtons(Manager.getButtons());
 		
 		final JLabel lblNewLabel = new JLabel("Agregar punto");
 		lblNewLabel.setBounds(10, 12, 84, 14);
@@ -73,34 +76,35 @@ public class AgregarPunto extends JDialog{
 					JOptionPane.showMessageDialog(panel, "Error en Y");
 					return;
 				}
-				lista.add(new Punto(x,y));				
-				enableParentButtons(buttons);
-				reloadList(lista,scrollPane);
+				final Punto punto = new Punto(x,y);
+				Manager.agregarPunto(punto);				
+				restoreParentButtons(Manager.getButtonsAndInfo());
+				addRow(punto,dtm);
 				dispose();
 			}
 		});
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(final ActionEvent e) {
-				enableParentButtons(buttons);
+				restoreParentButtons(Manager.getButtonsAndInfo());
 				dispose();
 			}
 		});
 		
 	}
 
-	private void reloadList(final List<Punto> lista, final JScrollPane contenedorPuntos) {
-//		scrollPane;
+	private void addRow(final Punto punto, final DefaultTableModel dtm) {
+		dtm.addRow(new Object[] {Manager.getPuntos().size(),punto.getX(),punto.getY()});
 	}
 	
-	private void disableParentButtons(final List<JButton> buttons) {
+	private void disableParentButtons(final Set<JButton> buttons) {
 		for(final JButton b : buttons) {
 			b.setEnabled(false);
 		}
 	}
 	
-	private void enableParentButtons(final List<JButton> buttons) {
-		for(final JButton b : buttons) {
-			b.setEnabled(true);
+	private void restoreParentButtons(final Map<JButton,Boolean> buttons) {
+		for(final Entry<JButton, Boolean> entry : buttons.entrySet()) {
+			entry.getKey().setEnabled(entry.getValue());
 		}
 	}
 
