@@ -70,6 +70,7 @@ public class Manager {
 	}
 	
 	public static void guardarPuntosAnteriores() {
+		puntosAnteriores.clear();
 		for(final Punto punto : puntos) {
 			puntosAnteriores.add(punto.duplicar());
 		}
@@ -122,6 +123,22 @@ public class Manager {
 				registerButton(button, false);
 			}
 		}
+	}
+
+	public static boolean puntosEquiespaciados() {
+		BigDecimal dif = null;
+		for(int i = 0; i< puntos.size() -1 ; i++) {
+			final BigDecimal x1 = puntos.get(i).getX();
+			final BigDecimal x2 = puntos.get(i+1).getX();
+			if(dif != null) {
+				if(!dif.equals(x2.subtract(x1).abs())) {
+					return false;
+				}
+			} else {
+				dif = x2.subtract(x1).abs();
+			}
+		}
+		return true;
 	}
 
 }

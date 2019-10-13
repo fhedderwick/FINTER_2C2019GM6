@@ -36,6 +36,7 @@ public class Textos {
 	public static final String EXISTE_X = "Ya existe esa X";
 	public static final String METODO = "M\u00E9todo:";
 	public static final String GRADO = "Grado:";
+	public static final String PUNTOS_EQUIESPACIADOS = "Puntos equiespaciados: ";
 	
 	
 }

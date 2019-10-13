@@ -8,6 +8,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import finter.Manager;
 import finter.Procesador;
 
 public class VerPasos extends JDialog{
@@ -20,7 +21,7 @@ public class VerPasos extends JDialog{
 		ViewManager.disableAllMainButtons();
 		
 		final JLabel lblNewLabel = new JLabel(Textos.PASOS);
-		lblNewLabel.setBounds(10, 61, 199, 14);
+		lblNewLabel.setBounds(10, 88, 199, 14);
 		panel.add(lblNewLabel);
 		
 		final JButton btnNewButton_1 = new JButton(Textos.VOLVER);
@@ -38,7 +39,7 @@ public class VerPasos extends JDialog{
 		panel.add(lblMtodo);
 		
 		final JLabel lblGrado = new JLabel(Textos.GRADO);
-		lblGrado.setBounds(10, 36, 46, 14);
+		lblGrado.setBounds(10, 63, 46, 14);
 		panel.add(lblGrado);
 		
 		final JLabel lblNewLabel_1 = new JLabel(Procesador.getMetodo());
@@ -46,8 +47,16 @@ public class VerPasos extends JDialog{
 		panel.add(lblNewLabel_1);
 		
 		final JLabel lblNewLabel_2 = new JLabel(Procesador.getGrado());
-		lblNewLabel_2.setBounds(59, 36, 46, 14);
+		lblNewLabel_2.setBounds(54, 63, 46, 14);
 		panel.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel(Textos.PUNTOS_EQUIESPACIADOS);
+		lblNewLabel_3.setBounds(10, 36, 144, 14);
+		panel.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel(Manager.puntosEquiespaciados()?Textos.SI:Textos.NO);
+		lblNewLabel_4.setBounds(151, 36, 46, 14);
+		panel.add(lblNewLabel_4);
 		
 	}
 
