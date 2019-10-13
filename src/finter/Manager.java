@@ -113,4 +113,12 @@ public class Manager {
 		}
 	}
 
+	public static void deshabilitarBoton(final String label) {
+		for(final JButton button : buttons.keySet()){
+			if(label.contentEquals(button.getText())) {
+				registerButton(button, false);
+			}
+		}
+	}
+
 }

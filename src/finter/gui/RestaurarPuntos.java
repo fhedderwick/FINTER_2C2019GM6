@@ -21,7 +21,7 @@ public class RestaurarPuntos extends JDialog{
 		ViewManager.disableAllMainButtons();
 		
 		final JLabel lblNewLabel = new JLabel(Textos.Q_RESTAURAR_PUNTOS);
-		lblNewLabel.setBounds(10, 12, 134, 14);
+		lblNewLabel.setBounds(10, 12, 287, 14);
 		panel.add(lblNewLabel);
 		
 		final JButton btnNewButton = new JButton(Textos.SI);
@@ -33,7 +33,7 @@ public class RestaurarPuntos extends JDialog{
 				dispose();
 			}
 		});
-		btnNewButton.setBounds(10, 37, 68, 23);
+		btnNewButton.setBounds(10, 37, 122, 23);
 		panel.add(btnNewButton);
 		
 		final JButton btnNewButton_1 = new JButton(Textos.NO);
@@ -43,7 +43,7 @@ public class RestaurarPuntos extends JDialog{
 				dispose();
 			}
 		});
-		btnNewButton_1.setBounds(85, 37, 68, 23);
+		btnNewButton_1.setBounds(142, 37, 130, 23);
 		panel.add(btnNewButton_1);
 		
 	}

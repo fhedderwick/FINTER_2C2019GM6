@@ -17,11 +17,12 @@ public class Textos {
 	public static final String ESPECIALIZAR_POLINOMIO = "Especializar polinomio";
 	public static final String ESPECIALIZAR = "Especializar";
 	public static final String VOLVER = "Volver";
-	public static final String Q_RESTAURAR_PUNTOS = "\u00BFRestaurar puntos?";
+	public static final String Q_RESTAURAR_PUNTOS = "\u00BFRestaurar puntos del último polinomio calculado?";
 	public static final String SI = "SI";
 	public static final String NO = "NO";
 	public static final String Q_SALIR = "\u00BFSalir de FINTER?";
 	public static final String VER_PASOS = "Ver pasos de c\u00E1lculo";
+	public static final String PASOS = "Pasos de c\u00E1lculo:";
 	public static final String FINTER = "FINTER";
 	public static final String POLINOMIO_ENCONTRADO = "Polinomio encontrado:";
 	public static final String PUNTOS_A_TOMAR = "Puntos a tomar:";
@@ -33,6 +34,8 @@ public class Textos {
 	public static final String LESS_THAN_SIGN = "<";
 	public static final String SALIR = "Salir";
 	public static final String EXISTE_X = "Ya existe esa X";
+	public static final String METODO = "M\u00E9todo:";
+	public static final String GRADO = "Grado:";
 	
 	
 }

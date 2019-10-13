@@ -99,13 +99,11 @@ public class Principal {
 		panel.add(btnCalcularPolinomio);
 		
 		final JButton btnEspecializarPolinomio = new JButton(Textos.ESPECIALIZAR_POLINOMIO);
-		btnEspecializarPolinomio.setEnabled(false);
 		btnEspecializarPolinomio.setBounds(242, 71, 229, 23);
 		panel.add(btnEspecializarPolinomio);
 		
 		final JButton btnVerPasosDe = new JButton(Textos.VER_PASOS);
 		btnVerPasosDe.setBounds(242, 106, 229, 23);
-		btnVerPasosDe.setEnabled(false);
 		panel.add(btnVerPasosDe);
 		
 		final JButton btnNewButton_1 = new JButton(Textos.LESS_THAN_SIGN);
@@ -128,24 +126,26 @@ public class Principal {
 		ViewManager.restoreMainButtons();
 		
 		btnVerPasosDe.addActionListener(new ActionListener() {
+			//VER PASOS DE CALCULO
 			public void actionPerformed(final ActionEvent e) {
 				final VerPasos verPasos = new VerPasos();
 				
 				verPasos.setLocation(60,70);
 				verPasos.setVisible(true);
-				verPasos.setSize(200, 120);
+				verPasos.setSize(450, 320);
 				verPasos.setAlwaysOnTop(true);
 				verPasos.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 			}
 		});
 		
 		btnNewButton_1.addActionListener(new ActionListener() {
+			//RESTAURAR ULTIMO POLINOMIO
 			public void actionPerformed(final ActionEvent e) {
 				final RestaurarPuntos restaurarPuntos = new RestaurarPuntos(dtm);
 				
 				restaurarPuntos.setLocation(60,70);
 				restaurarPuntos.setVisible(true);
-				restaurarPuntos.setSize(200, 120);
+				restaurarPuntos.setSize(350, 120);
 				restaurarPuntos.setAlwaysOnTop(true);
 				restaurarPuntos.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 			}

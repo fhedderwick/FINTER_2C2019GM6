@@ -50,6 +50,7 @@ public class CalcularPolinomio extends JDialog{
 				Manager.habilitarBoton(Textos.LESS_THAN_SIGN);
 				Manager.habilitarBoton(Textos.ESPECIALIZAR_POLINOMIO);
 				Manager.habilitarBoton(Textos.VER_PASOS);
+				Manager.deshabilitarBoton(Textos.CALCULAR_POLINOMIO);
 				if(rdbtnNewRadioButton.isSelected()) {
 					Procesador.lagrange();
 					ViewManager.setTextoPolinomio("NO IMPLEMENTADO AUN!");
