@@ -18,7 +18,6 @@ import finter.Manager;
 public class Principal {
 
 	private JFrame frmFinter;
-	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -48,7 +47,7 @@ public class Principal {
 	 */
 	private void initialize() {
 		frmFinter = new JFrame();
-		frmFinter.setTitle("FINTER");
+		frmFinter.setTitle(Textos.FINTER);
 		frmFinter.setBounds(100, 100, 497, 300);
 		frmFinter.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -56,13 +55,13 @@ public class Principal {
 		frmFinter.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		textField = new JTextField();
+		final JTextField textField = Manager.getPolinomio();
 		textField.setEditable(false);
 		textField.setBounds(10, 231, 461, 20);
 		panel.add(textField);
 		textField.setColumns(10);
 		
-		final JLabel lblNewLabel = new JLabel("Polinomio encontrado:");
+		final JLabel lblNewLabel = new JLabel(Textos.POLINOMIO_ENCONTRADO);
 		lblNewLabel.setBounds(10, 205, 354, 14);
 		panel.add(lblNewLabel);
 		
@@ -73,7 +72,7 @@ public class Principal {
 			};
 		};
 		final DefaultTableModel dtm = new DefaultTableModel(0,0);
-		final String[] header = new String[] {"i","x","y"};
+		final String[] header = new String[] {Textos.I_LABEL,Textos.X_LABEL,Textos.Y_LABEL};
 		dtm.setColumnIdentifiers(header);
 		table.setModel(dtm);
 		table.setEditingColumn(0);
@@ -83,48 +82,50 @@ public class Principal {
 		panel.add(scrollPane);
 		
 		
-		final JLabel lblPuntosATomar = new JLabel("Puntos a tomar:");
+		final JLabel lblPuntosATomar = new JLabel(Textos.PUNTOS_A_TOMAR);
 		lblPuntosATomar.setBounds(10, 11, 98, 14);
 		panel.add(lblPuntosATomar);
 		
-		final JButton button = new JButton("+");
+		final JButton button = new JButton(Textos.PLUS_SIGN);
 		button.setBounds(168, 36, 41, 41);
 		panel.add(button);
 		
-		final JButton btnNewButton = new JButton("-");
+		final JButton btnNewButton = new JButton(Textos.MINUS_SIGN);
 		btnNewButton.setBounds(168, 88, 41, 41);
 		panel.add(btnNewButton);
 		
-		final JButton btnCalcularPolinomio = new JButton("Calcular polinomio");
+		final JButton btnCalcularPolinomio = new JButton(Textos.CALCULAR_POLINOMIO);
 		btnCalcularPolinomio.setBounds(242, 36, 229, 23);
 		panel.add(btnCalcularPolinomio);
 		
-		final JButton btnEspecializarPolinomio = new JButton("Especializar polinomio");
+		final JButton btnEspecializarPolinomio = new JButton(Textos.ESPECIALIZAR_POLINOMIO);
 		btnEspecializarPolinomio.setEnabled(false);
 		btnEspecializarPolinomio.setBounds(242, 71, 229, 23);
 		panel.add(btnEspecializarPolinomio);
 		
-		final JButton btnVerPasosDe = new JButton("Ver pasos de c\u00E1lculo");
+		final JButton btnVerPasosDe = new JButton(Textos.VER_PASOS);
 		btnVerPasosDe.setBounds(242, 106, 229, 23);
 		btnVerPasosDe.setEnabled(false);
 		panel.add(btnVerPasosDe);
 		
-		final JButton btnNewButton_1 = new JButton("<");
+		final JButton btnNewButton_1 = new JButton(Textos.LESS_THAN_SIGN);
 		btnNewButton_1.setBounds(168, 140, 41, 41);
 		panel.add(btnNewButton_1);
 	
-		final JButton btnSalir = new JButton("Salir");
+		final JButton btnSalir = new JButton(Textos.SALIR);
 
 		btnSalir.setBounds(242, 140, 229, 23);
 		panel.add(btnSalir);
 		
 		Manager.registerButton(button, true);
-		Manager.registerButton(btnNewButton, true);
-		Manager.registerButton(btnCalcularPolinomio, true);
+		Manager.registerButton(btnNewButton, false);
+		Manager.registerButton(btnCalcularPolinomio, false);
 		Manager.registerButton(btnVerPasosDe, false);
 		Manager.registerButton(btnNewButton_1, false);
 		Manager.registerButton(btnEspecializarPolinomio, false);
 		Manager.registerButton(btnSalir, true);
+		
+		ViewManager.restoreMainButtons();
 		
 		btnVerPasosDe.addActionListener(new ActionListener() {
 			public void actionPerformed(final ActionEvent e) {
@@ -140,7 +141,7 @@ public class Principal {
 		
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(final ActionEvent e) {
-				final RestaurarPuntos restaurarPuntos = new RestaurarPuntos();
+				final RestaurarPuntos restaurarPuntos = new RestaurarPuntos(dtm);
 				
 				restaurarPuntos.setLocation(60,70);
 				restaurarPuntos.setVisible(true);
@@ -160,6 +161,7 @@ public class Principal {
 				agregarPunto.setSize(300, 200);
 				agregarPunto.setAlwaysOnTop(true);
 				agregarPunto.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+				
 			}
 		});
 		
@@ -178,12 +180,11 @@ public class Principal {
 		});
 		
 		btnNewButton.addActionListener(new ActionListener() {
+			//QUITAR PUNTO
 			public void actionPerformed(final ActionEvent e) {
-				if(table.getSelectedRows().length != 0) {
-					table.remove(table.getSelectedRow());
-				}
-				//si lista queda vacia, deshabilitar el boton de calcular
-				//si lista queda vacia, deshabilitar el boton de quitar punto
+				Manager.quitarPuntos(table.getSelectedRows());
+				ViewManager.refreshTable(dtm);
+				ViewManager.restoreMainButtons();
 			}
 		});
 		
@@ -198,12 +199,10 @@ public class Principal {
 				calcularPolinomio.setAlwaysOnTop(true);
 				calcularPolinomio.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 				//deshabilitar todos los botones, hasta que termine
-				//guardar lista de puntos actuales
 				//guardar polinomio resultado
 				//mostrar polinomio, grado y metodo
 				//Manager.habilitar(btnNewButton_1);
 				//habilitar todos los botones
-				//el de restaurar se habilita para siempre
 				
 
 			}
@@ -222,4 +221,5 @@ public class Principal {
 			}
 		});
 	}
+	
 }

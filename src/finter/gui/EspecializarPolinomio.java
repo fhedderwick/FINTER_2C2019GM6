@@ -3,9 +3,6 @@ package finter.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -14,7 +11,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import finter.Manager;
 import finter.Procesador;
 
 public class EspecializarPolinomio extends JDialog{
@@ -22,22 +18,22 @@ public class EspecializarPolinomio extends JDialog{
 	private JTextField textField_1;
 
 	public EspecializarPolinomio() {
-		setTitle("Especializar polinomio");
+		setTitle(Textos.ESPECIALIZAR_POLINOMIO);
 		final JPanel panel = new JPanel();
 		this.setContentPane(panel);
 		panel.setLayout(null);
 		
-		disableParentButtons(Manager.getButtons());
+		ViewManager.disableAllMainButtons();
 		
-		final JLabel lblNewLabel = new JLabel("Especializar polinomio");
+		final JLabel lblNewLabel = new JLabel(Textos.ESPECIALIZAR_POLINOMIO);
 		lblNewLabel.setBounds(10, 12, 84, 14);
 		panel.add(lblNewLabel);
 		
-		final JButton btnNewButton = new JButton("Especializar");
+		final JButton btnNewButton = new JButton(Textos.ESPECIALIZAR);
 		btnNewButton.setBounds(26, 111, 124, 23);
 		panel.add(btnNewButton);
 		
-		final JButton btnNewButton_1 = new JButton("Volver");
+		final JButton btnNewButton_1 = new JButton(Textos.VOLVER);
 		btnNewButton_1.setBounds(162, 111, 84, 23);
 		panel.add(btnNewButton_1);
 		
@@ -52,11 +48,11 @@ public class EspecializarPolinomio extends JDialog{
 		panel.add(textField_1);
 		textField_1.setColumns(10);
 		
-		final JLabel lblNewLabel_1 = new JLabel("X: ");
+		final JLabel lblNewLabel_1 = new JLabel(Textos.X);
 		lblNewLabel_1.setBounds(10, 39, 36, 17);
 		panel.add(lblNewLabel_1);
 		
-		final JLabel lblNewLabel_2 = new JLabel("Y:");
+		final JLabel lblNewLabel_2 = new JLabel(Textos.Y);
 		lblNewLabel_2.setBounds(10, 71, 36, 17);
 		panel.add(lblNewLabel_2);
 		
@@ -67,7 +63,7 @@ public class EspecializarPolinomio extends JDialog{
 				try {
 					x = new BigDecimal(textField.getText());
 				}catch(final Exception ex) {
-					JOptionPane.showMessageDialog(panel, "Error en X");
+					JOptionPane.showMessageDialog(panel, Textos.ERROR_X);
 					return;
 				}
 				textField_1.setText(Procesador.especializarPolinomio(x));
@@ -75,23 +71,10 @@ public class EspecializarPolinomio extends JDialog{
 		});
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(final ActionEvent e) {
-				restoreParentButtons(Manager.getButtonsAndInfo());
+				ViewManager.restoreMainButtons();
 				dispose();
 			}
 		});
 		
 	}
-
-	private void disableParentButtons(final Set<JButton> buttons) {
-		for(final JButton b : buttons) {
-			b.setEnabled(false);
-		}
-	}
-	
-	private void restoreParentButtons(final Map<JButton,Boolean> buttons) {
-		for(final Entry<JButton, Boolean> entry : buttons.entrySet()) {
-			entry.getKey().setEnabled(entry.getValue());
-		}
-	}
-
 }

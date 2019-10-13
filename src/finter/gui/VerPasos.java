@@ -2,16 +2,11 @@ package finter.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import finter.Manager;
 
 public class VerPasos extends JDialog{
 
@@ -20,35 +15,22 @@ public class VerPasos extends JDialog{
 		this.setContentPane(panel);
 		panel.setLayout(null);
 		
-		disableParentButtons(Manager.getButtons());
+		ViewManager.disableAllMainButtons();
 		
-		final JLabel lblNewLabel = new JLabel("Ver pasos de c\u00E1lculo");
+		final JLabel lblNewLabel = new JLabel(Textos.VER_PASOS);
 		lblNewLabel.setBounds(10, 12, 199, 14);
 		panel.add(lblNewLabel);
 		
-		final JButton btnNewButton_1 = new JButton("Volver");
+		final JButton btnNewButton_1 = new JButton(Textos.VOLVER);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(final ActionEvent e) {
-				restoreParentButtons(Manager.getButtonsAndInfo());
+				ViewManager.restoreMainButtons();
 				dispose();
 			}
 		});
 		btnNewButton_1.setBounds(20, 37, 68, 23);
 		panel.add(btnNewButton_1);
 		
-	}
-
-	
-	private void disableParentButtons(final Set<JButton> buttons) {
-		for(final JButton b : buttons) {
-			b.setEnabled(false);
-		}
-	}
-	
-	private void restoreParentButtons(final Map<JButton,Boolean> buttons) {
-		for(final Entry<JButton, Boolean> entry : buttons.entrySet()) {
-			entry.getKey().setEnabled(entry.getValue());
-		}
 	}
 
 }
