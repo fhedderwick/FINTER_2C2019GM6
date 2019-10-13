@@ -38,6 +38,7 @@ public class Textos {
 	public static final String GRADO = "Grado:";
 	public static final String PUNTOS_EQUIESPACIADOS = "Puntos equiespaciados: ";
 	public static final String FUERA_DE_RANGO = "X debe estar entre puntos definidos";
+	public static final String PASO = "Paso";
 	
 	
 }

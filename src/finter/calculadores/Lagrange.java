@@ -16,7 +16,7 @@ public class Lagrange {
 	private static List<String> pasos = new ArrayList<>();
 	
 	public static int procesar() {
-		
+		int i = 0;
 		for(final Punto puntoExterno : Manager.getPuntos()) {
 			final List<BigDecimal> sustraendos = new ArrayList<>();
 			for(final Punto puntoInterno : Manager.getPuntos()) {
@@ -27,7 +27,7 @@ public class Lagrange {
 			}
 			
 			final StringBuilder sb = new StringBuilder();
-			sb.append("Lo(").append(puntoExterno.getX()).append(")=");
+			sb.append("L").append(i).append("(").append(puntoExterno.getX()).append(")=");
 			BigDecimal coeficiente = new BigDecimal(1);
 			for(final BigDecimal sustraendo : sustraendos) {
 				sb.append("(")
@@ -40,6 +40,7 @@ public class Lagrange {
 			pasos.add(sb.toString() + "=" + coeficiente);
 			
 			map.put(puntoExterno.getY().divide(coeficiente,2,BigDecimal.ROUND_HALF_EVEN),sustraendos);
+			i++;
 		}
 		
 		return getGrado();
@@ -48,7 +49,7 @@ public class Lagrange {
 	public static int getGrado() {
 		BigDecimal base = new BigDecimal(0);
 		for(final BigDecimal coeficiente : map.keySet()) {
-			base.add(coeficiente);
+			base = base.add(coeficiente);
 		}
 		return map.size() - (base.equals(BigDecimal.ZERO) ? 2 : 1);
 	}
@@ -88,14 +89,8 @@ public class Lagrange {
 		return retVal.toString();
 	}
 	
-	public static String getPasos(){
-		//TODO: reemplazar por una lista y que se cargue una grilla en la vista
-		final StringBuilder sb = new StringBuilder();
-		for(final String paso : pasos) {
-			sb.append(paso);
-			sb.append(System.lineSeparator());
-		}
-		return sb.toString();
+	public static List<String> getPasos(){
+		return pasos;
 	}
 
 }

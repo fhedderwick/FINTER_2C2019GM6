@@ -6,9 +6,19 @@ import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
 import finter.Manager;
+import finter.Procesador;
 import finter.Punto;
 
 public class ViewManager {
+	
+	public static void cargarTablaPasos(final DefaultTableModel dtm) {
+		dtm.setRowCount(0);
+		int i = 0;
+		for(final String paso : Procesador.getPasos()) {
+			dtm.addRow(new Object[] {paso});
+			i++;
+		}
+	}
 
 	public static void refreshTable(final DefaultTableModel dtm) {
 		dtm.setRowCount(0);

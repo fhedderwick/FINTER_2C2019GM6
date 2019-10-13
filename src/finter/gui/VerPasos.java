@@ -7,10 +7,12 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import finter.Manager;
 import finter.Procesador;
-import finter.calculadores.Lagrange;
 
 public class VerPasos extends JDialog{
 
@@ -21,11 +23,26 @@ public class VerPasos extends JDialog{
 		
 		ViewManager.disableAllMainButtons();
 		
+		final JTable table = new JTable() {
+			@Override
+			public boolean isCellEditable(final int row, final int column) {
+				return false;
+			};
+		};
+		final DefaultTableModel dtm = new DefaultTableModel(0,0);
+		final String[] header = new String[] {Textos.PASO};
+		dtm.setColumnIdentifiers(header);
+		table.setModel(dtm);
+		table.setEditingColumn(0);
+		final JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(10, 115, 301, 136);
+		scrollPane.createHorizontalScrollBar();
+		panel.add(scrollPane);
+		ViewManager.cargarTablaPasos(dtm);
+		
 		final JLabel lblNewLabel = new JLabel(Textos.PASOS);
 		lblNewLabel.setBounds(10, 88, 199, 14);
 		panel.add(lblNewLabel);
-		
-lblNewLabel.setText(Lagrange.getPasos()); //TODO:QUITAR
 		
 		final JButton btnNewButton_1 = new JButton(Textos.VOLVER);
 		btnNewButton_1.addActionListener(new ActionListener() {

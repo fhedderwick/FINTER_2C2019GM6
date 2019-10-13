@@ -1,6 +1,8 @@
 package finter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import finter.calculadores.Lagrange;
 import finter.calculadores.NGProgresivo;
@@ -11,6 +13,16 @@ public class Procesador {
 
 	private static String metodo = "";
 	private static int grado = 0;
+	
+	public static List<String> getPasos() {
+		switch(metodo) {
+			case Textos.LAGRANGE: return Lagrange.getPasos();
+			case Textos.NG_P: return NGProgresivo.getPasos();
+			case Textos.NG_R: return NGRegresivo.getPasos();
+			default:
+		};
+		return new ArrayList<>();
+	}
 	
 	public static String especializarPolinomio(final BigDecimal x) {
 		switch(metodo) {

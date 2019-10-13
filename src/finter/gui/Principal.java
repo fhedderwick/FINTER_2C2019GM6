@@ -81,7 +81,6 @@ public class Principal {
 		scrollPane.createHorizontalScrollBar();
 		panel.add(scrollPane);
 		
-		
 		final JLabel lblPuntosATomar = new JLabel(Textos.PUNTOS_A_TOMAR);
 		lblPuntosATomar.setBounds(10, 11, 98, 14);
 		panel.add(lblPuntosATomar);
@@ -198,13 +197,6 @@ public class Principal {
 				calcularPolinomio.setSize(300, 230);
 				calcularPolinomio.setAlwaysOnTop(true);
 				calcularPolinomio.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-				//deshabilitar todos los botones, hasta que termine
-				//guardar polinomio resultado
-				//mostrar polinomio, grado y metodo
-				//Manager.habilitar(btnNewButton_1);
-				//habilitar todos los botones
-				
-
 			}
 		});
 		

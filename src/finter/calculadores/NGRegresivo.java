@@ -1,6 +1,7 @@
 package finter.calculadores;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class NGRegresivo {
 
@@ -15,6 +16,10 @@ public class NGRegresivo {
 	public static String getPolinomio() {
 		final StringBuilder sb = new StringBuilder();
 		return sb.toString();
+	}
+
+	public static List<String> getPasos() {
+		return null;
 	}
 
 }
