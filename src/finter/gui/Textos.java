@@ -39,6 +39,7 @@ public class Textos {
 	public static final String PUNTOS_EQUIESPACIADOS = "Puntos equiespaciados: ";
 	public static final String FUERA_DE_RANGO = "X debe estar entre puntos definidos";
 	public static final String PASO = "Paso";
+	public static final Object CAMBIO_POLINOMIO = "El polinomio ha cambiado";
 	
 	
 }

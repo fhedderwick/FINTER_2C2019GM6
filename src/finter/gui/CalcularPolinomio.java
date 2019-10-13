@@ -7,6 +7,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
@@ -54,15 +55,21 @@ public class CalcularPolinomio extends JDialog{
 				Manager.habilitarBoton(Textos.ESPECIALIZAR_POLINOMIO);
 				Manager.habilitarBoton(Textos.VER_PASOS);
 				Manager.deshabilitarBoton(Textos.CALCULAR_POLINOMIO);
+				final String polinomioAnterior = Procesador.getPolinomio();
+				String nuevoPolinomio = "";
 				if(rdbtnNewRadioButton.isSelected()) {
 					Procesador.lagrange();
-					ViewManager.setTextoPolinomio(Lagrange.getPolinomio());
+					nuevoPolinomio = Lagrange.getPolinomio();
 				} else if(rdbtnNewRadioButton_1.isSelected()) {
 					Procesador.ngprogresivo();
-					ViewManager.setTextoPolinomio(NGProgresivo.getPolinomio());
+					nuevoPolinomio = NGProgresivo.getPolinomio();
 				} else if(rdbtnNewRadioButton_2.isSelected()) {
 					Procesador.ngregresivo();
-					ViewManager.setTextoPolinomio(NGRegresivo.getPolinomio());
+					nuevoPolinomio = NGRegresivo.getPolinomio();
+				}
+				ViewManager.setTextoPolinomio(nuevoPolinomio);
+				if(!polinomioAnterior.isEmpty() && !polinomioAnterior.equals(nuevoPolinomio)) {
+					JOptionPane.showMessageDialog(panel, Textos.CAMBIO_POLINOMIO);
 				}
 				ViewManager.restoreMainButtons();
 				dispose();

@@ -14,6 +14,16 @@ public class Procesador {
 	private static String metodo = "";
 	private static int grado = 0;
 	
+	public static String getPolinomio(){
+		switch(metodo) {
+		case Textos.LAGRANGE: return Lagrange.getPolinomio();
+		case Textos.NG_P: return NGProgresivo.getPolinomio();
+		case Textos.NG_R: return NGRegresivo.getPolinomio();
+		default:
+	};
+	return "";
+	}
+	
 	public static List<String> getPasos() {
 		switch(metodo) {
 			case Textos.LAGRANGE: return Lagrange.getPasos();
