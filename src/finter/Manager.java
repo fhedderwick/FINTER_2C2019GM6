@@ -39,10 +39,13 @@ public class Manager {
 		puntos.add(punto);
 		puntos.sort(null);
 		for(final JButton button : buttons.keySet()){
+			if(Textos.CALCULAR_POLINOMIO.contentEquals(button.getText())) {
+				registerButton(button, puntos.size() > 1);
+			}
 			if(Textos.ESPECIALIZAR_POLINOMIO.contentEquals(button.getText()) || Textos.VER_PASOS.contentEquals(button.getText())) {
 				registerButton(button, false);
 			}
-			if(Textos.MINUS_SIGN.contentEquals(button.getText()) || Textos.CALCULAR_POLINOMIO.contentEquals(button.getText())) {
+			if(Textos.MINUS_SIGN.contentEquals(button.getText())) {
 				registerButton(button, true);
 			}
 		}
@@ -59,10 +62,13 @@ public class Manager {
 				registerButton(button, false);
 			}
 			if(Textos.CALCULAR_POLINOMIO.contentEquals(button.getText())) {
-				Manager.registerButton(button, true);
+				registerButton(button, true);
+				if(puntos.size() < 2) {
+					registerButton(button, false);
+				}
 			}
-			if(!hayPuntos()) {
-				if(Textos.MINUS_SIGN.contentEquals(button.getText()) || Textos.CALCULAR_POLINOMIO.contentEquals(button.getText())) {
+			if(puntos.size() == 0) {
+				if(Textos.MINUS_SIGN.contentEquals(button.getText())) {
 					registerButton(button, false);
 				}
 			}
@@ -74,10 +80,6 @@ public class Manager {
 		for(final Punto punto : puntos) {
 			puntosAnteriores.add(punto.duplicar());
 		}
-	}
-
-	public static boolean hayPuntos() {
-		return !puntos.isEmpty();
 	}
 
 	public static boolean existe(final BigDecimal x) {
@@ -139,6 +141,13 @@ public class Manager {
 			}
 		}
 		return true;
+	}
+
+	public static boolean puntoInterpolable(final BigDecimal x) {
+		if(puntos.size() > 1) {
+			return x.compareTo(puntos.get(0).getX()) >= 0  && x.compareTo(puntos.get(puntos.size()-1).getX()) <= 0;
+		}
+		return false;
 	}
 
 }

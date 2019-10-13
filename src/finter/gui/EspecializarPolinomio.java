@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import finter.Manager;
 import finter.Procesador;
 
 public class EspecializarPolinomio extends JDialog{
@@ -58,12 +59,15 @@ public class EspecializarPolinomio extends JDialog{
 		
 		btnNewButton.addActionListener(new ActionListener() {
 			BigDecimal x;
-			BigDecimal y;
 			public void actionPerformed(final ActionEvent e) {
 				try {
 					x = new BigDecimal(textField.getText());
 				}catch(final Exception ex) {
 					JOptionPane.showMessageDialog(panel, Textos.ERROR_X);
+					return;
+				}
+				if(!Manager.puntoInterpolable(x)) {
+					JOptionPane.showMessageDialog(panel, Textos.FUERA_DE_RANGO);
 					return;
 				}
 				textField_1.setText(Procesador.especializarPolinomio(x));

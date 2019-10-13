@@ -12,6 +12,9 @@ import javax.swing.JRadioButton;
 
 import finter.Manager;
 import finter.Procesador;
+import finter.calculadores.Lagrange;
+import finter.calculadores.NGProgresivo;
+import finter.calculadores.NGRegresivo;
 
 public class CalcularPolinomio extends JDialog{
 
@@ -53,13 +56,13 @@ public class CalcularPolinomio extends JDialog{
 				Manager.deshabilitarBoton(Textos.CALCULAR_POLINOMIO);
 				if(rdbtnNewRadioButton.isSelected()) {
 					Procesador.lagrange();
-					ViewManager.setTextoPolinomio("NO IMPLEMENTADO AUN!");
+					ViewManager.setTextoPolinomio(Lagrange.getPolinomio());
 				} else if(rdbtnNewRadioButton_1.isSelected()) {
 					Procesador.ngprogresivo();
-					ViewManager.setTextoPolinomio("NO IMPLEMENTADO AUN!");
+					ViewManager.setTextoPolinomio(NGProgresivo.getPolinomio());
 				} else if(rdbtnNewRadioButton_2.isSelected()) {
 					Procesador.ngregresivo();
-					ViewManager.setTextoPolinomio("NO IMPLEMENTADO AUN!");
+					ViewManager.setTextoPolinomio(NGRegresivo.getPolinomio());
 				}
 				ViewManager.restoreMainButtons();
 				dispose();

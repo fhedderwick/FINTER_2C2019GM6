@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 import finter.Manager;
 import finter.Procesador;
+import finter.calculadores.Lagrange;
 
 public class VerPasos extends JDialog{
 
@@ -23,6 +24,8 @@ public class VerPasos extends JDialog{
 		final JLabel lblNewLabel = new JLabel(Textos.PASOS);
 		lblNewLabel.setBounds(10, 88, 199, 14);
 		panel.add(lblNewLabel);
+		
+lblNewLabel.setText(Lagrange.getPasos()); //TODO:QUITAR
 		
 		final JButton btnNewButton_1 = new JButton(Textos.VOLVER);
 		btnNewButton_1.addActionListener(new ActionListener() {

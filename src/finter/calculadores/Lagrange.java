@@ -1,0 +1,101 @@
+package finter.calculadores;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import finter.Manager;
+import finter.Punto;
+
+public class Lagrange {
+
+	private static Map<BigDecimal,List<BigDecimal>> map = new HashMap<>();
+	private static List<String> pasos = new ArrayList<>();
+	
+	public static int procesar() {
+		
+		for(final Punto puntoExterno : Manager.getPuntos()) {
+			final List<BigDecimal> sustraendos = new ArrayList<>();
+			for(final Punto puntoInterno : Manager.getPuntos()) {
+				if(puntoInterno.equals(puntoExterno)) {
+					continue;
+				}
+				sustraendos.add(puntoInterno.getX());
+			}
+			
+			final StringBuilder sb = new StringBuilder();
+			sb.append("Lo(").append(puntoExterno.getX()).append(")=");
+			BigDecimal coeficiente = new BigDecimal(1);
+			for(final BigDecimal sustraendo : sustraendos) {
+				sb.append("(")
+					.append(puntoExterno.getX())
+					.append(sustraendo.compareTo(BigDecimal.ZERO) < 0 ? "+" : "-")
+					.append(sustraendo.abs())
+					.append(")");
+				coeficiente = coeficiente.multiply(puntoExterno.getX().subtract(sustraendo));
+			}
+			pasos.add(sb.toString() + "=" + coeficiente);
+			
+			map.put(puntoExterno.getY().divide(coeficiente,2,BigDecimal.ROUND_HALF_EVEN),sustraendos);
+		}
+		
+		return getGrado();
+	}
+	
+	public static int getGrado() {
+		BigDecimal base = new BigDecimal(0);
+		for(final BigDecimal coeficiente : map.keySet()) {
+			base.add(coeficiente);
+		}
+		return map.size() - (base.equals(BigDecimal.ZERO) ? 2 : 1);
+	}
+	
+	public static String getPolinomio() {
+		final StringBuilder sb = new StringBuilder();
+		boolean primero = true;
+		for(final Entry<BigDecimal, List<BigDecimal>> termino : map.entrySet()) {
+			final BigDecimal coef = termino.getKey();
+			if(!primero && coef.compareTo(BigDecimal.ZERO) >= 0) {
+				sb.append("+");
+			}
+			sb.append(coef);
+			for(final BigDecimal value : termino.getValue()) {
+				sb.append("(x");
+				sb.append(value.compareTo(BigDecimal.ZERO) >= 0 ? "-" : "+");
+				sb.append(value.abs()).append(")");
+			}
+			primero = false;
+		}
+		return sb.toString();
+	}
+
+	public static String especializar(final BigDecimal buscado) {
+		final List<BigDecimal> terminos = new ArrayList<>();
+		for(final Entry<BigDecimal, List<BigDecimal>> termino : map.entrySet()) {
+			BigDecimal tempVal = termino.getKey();
+			for(final BigDecimal value : termino.getValue()) {
+				tempVal = tempVal.multiply(buscado.subtract(value));
+			}
+			terminos.add(tempVal);
+		}
+		BigDecimal retVal = BigDecimal.ZERO;
+		for(final BigDecimal termino : terminos) {
+			retVal = retVal.add(termino);
+		}
+		return retVal.toString();
+	}
+	
+	public static String getPasos(){
+		//TODO: reemplazar por una lista y que se cargue una grilla en la vista
+		final StringBuilder sb = new StringBuilder();
+		for(final String paso : pasos) {
+			sb.append(paso);
+			sb.append(System.lineSeparator());
+		}
+		return sb.toString();
+	}
+
+}
