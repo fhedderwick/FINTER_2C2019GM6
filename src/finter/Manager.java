@@ -58,6 +58,9 @@ public class Manager {
 			if(Textos.ESPECIALIZAR_POLINOMIO.contentEquals(button.getText()) || Textos.VER_PASOS.contentEquals(button.getText())) {
 				registerButton(button, false);
 			}
+			if(Textos.CALCULAR_POLINOMIO.contentEquals(button.getText())) {
+				Manager.registerButton(button, true);
+			}
 			if(!hayPuntos()) {
 				if(Textos.MINUS_SIGN.contentEquals(button.getText()) || Textos.CALCULAR_POLINOMIO.contentEquals(button.getText())) {
 					registerButton(button, false);
