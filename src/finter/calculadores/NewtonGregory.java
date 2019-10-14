@@ -7,7 +7,7 @@ import java.util.List;
 import finter.Manager;
 import finter.Punto;
 
-public class NGRegresivo {
+public class NewtonGregory {
 
 	/*
 		puedo hacer una matriz, poniendo los puntos intercalados 
@@ -71,20 +71,63 @@ public class NGRegresivo {
 		return grado;
 	}
 
-	public static String especializar(final BigDecimal buscado) {
+	public static String especializar(final boolean progresivo,final BigDecimal buscado) {
 		return "NO IMPLEMENTADO AUN!";
 	}
 	
-	public static String getPolinomio() {
+	public static String getPolinomio(final boolean progresivo) {
 		final StringBuilder sb = new StringBuilder();
+		
+		final int cantPuntos = Manager.getPuntos().size();
+		final int columnas = cantPuntos + 1;
+
+		if(progresivo) {
+			for(int col=1,fila=0;col<columnas;col++,fila++) {
+				final BigDecimal coef = matriz[fila][col];
+				if(BigDecimal.ZERO.compareTo(coef) == 0) {
+					continue;
+				}
+				if(col != 1 && BigDecimal.ZERO.compareTo(coef) <= 0) {
+					sb.append("+");
+				}
+				sb.append(coef);
+				for(int i=0,cont=0;cont<col-1;cont++,i+=2) {
+					sb
+						.append("(x")
+						.append(BigDecimal.ZERO.compareTo(matriz[i][0]) > 0 ? "+" : "-")
+						.append(matriz[i][0])
+						.append(")");
+				}
+			}
+		}else {
+			final int filas = (cantPuntos * 2) -1;
+			for(int col=1,fila=filas-1;col<columnas;col++,fila--) {
+				final BigDecimal coef = matriz[fila][col];
+				if(BigDecimal.ZERO.compareTo(coef) == 0) {
+					continue;
+				}
+				if(col != 1 && BigDecimal.ZERO.compareTo(coef) <= 0) {
+					sb.append("+");
+				}
+				sb.append(coef);
+				for(int i=filas-1,cont=0;cont<col-1;cont++,i-=2) {
+					sb
+						.append("(x")
+						.append(BigDecimal.ZERO.compareTo(matriz[i][0]) > 0 ? "+" : "-")
+						.append(matriz[i][0])
+						.append(")");
+				}
+			}
+		}
+		
 		return sb.toString();
 	}
 
 	public static List<List<String>> getPasos() {
 		final List<List<String>> list = new ArrayList<>();
 		final int cantPuntos = Manager.getPuntos().size();
-		int filas=(cantPuntos * 2) -1;
-		int columnas = cantPuntos + 1;
+		final int filas=(cantPuntos * 2) -1;
+		final int columnas = cantPuntos + 1;
 		for(int i=0;i<filas;i++) {
 			final List<String> temp = new ArrayList<>();
 			for(int j=0;j<columnas;j++) {

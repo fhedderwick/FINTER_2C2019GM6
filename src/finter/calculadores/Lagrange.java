@@ -13,6 +13,7 @@ import finter.gui.Textos;
 
 public class Lagrange {
 
+	//TODO: cambiar map por lista de listas, pues si se repite coeficiente lo pisa
 	private static Map<BigDecimal,List<BigDecimal>> map = new HashMap<>();
 	private static List<String> pasos = new ArrayList<>();
 	

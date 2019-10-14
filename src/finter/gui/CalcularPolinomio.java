@@ -14,8 +14,7 @@ import javax.swing.JRadioButton;
 import finter.Manager;
 import finter.Procesador;
 import finter.calculadores.Lagrange;
-import finter.calculadores.NGProgresivo;
-import finter.calculadores.NGRegresivo;
+import finter.calculadores.NewtonGregory;
 
 public class CalcularPolinomio extends JDialog{
 
@@ -62,10 +61,10 @@ public class CalcularPolinomio extends JDialog{
 					nuevoPolinomio = Lagrange.getPolinomio();
 				} else if(rdbtnNewRadioButton_1.isSelected()) {
 					Procesador.ngprogresivo();
-					nuevoPolinomio = NGProgresivo.getPolinomio();
+					nuevoPolinomio = NewtonGregory.getPolinomio(true);
 				} else if(rdbtnNewRadioButton_2.isSelected()) {
 					Procesador.ngregresivo();
-					nuevoPolinomio = NGRegresivo.getPolinomio();
+					nuevoPolinomio = NewtonGregory.getPolinomio(false);
 				}
 				ViewManager.setTextoPolinomio(nuevoPolinomio);
 				if(!polinomioAnterior.isEmpty() && !polinomioAnterior.equals(nuevoPolinomio)) {
