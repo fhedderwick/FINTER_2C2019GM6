@@ -72,7 +72,42 @@ public class NewtonGregory {
 	}
 
 	public static String especializar(final boolean progresivo,final BigDecimal buscado) {
-		return "NO IMPLEMENTADO AUN!";
+		final int cantPuntos = Manager.getPuntos().size();
+		final int columnas = cantPuntos + 1;
+
+		BigDecimal resultado = BigDecimal.ZERO;
+		final List<BigDecimal> terminos = new ArrayList<>();
+		if(progresivo) {
+			for(int col=1,fila=0;col<columnas;col++,fila++) {
+				final BigDecimal coef = matriz[fila][col];
+				if(BigDecimal.ZERO.compareTo(coef) == 0) {
+					continue;
+				}
+				BigDecimal factores = BigDecimal.ONE;
+				for(int i=0,cont=0;cont<col-1;cont++,i+=2) {
+					factores = factores.multiply(buscado.subtract(matriz[i][0]));
+				}
+				terminos.add(coef.multiply(factores));
+			}
+		}else {
+			final int filas = (cantPuntos * 2) -1;
+			for(int col=1,fila=filas-1;col<columnas;col++,fila--) {
+				final BigDecimal coef = matriz[fila][col];
+				if(BigDecimal.ZERO.compareTo(coef) == 0) {
+					continue;
+				}
+				BigDecimal factores = BigDecimal.ONE;
+				for(int i=filas-1,cont=0;cont<col-1;cont++,i-=2) {
+					factores = factores.multiply(buscado.subtract(matriz[i][0]));
+				}
+				terminos.add(coef.multiply(factores));
+			}
+		}
+		
+		for(final BigDecimal val : terminos) {
+			resultado = resultado.add(val);
+		}
+		return resultado.toString();
 	}
 	
 	public static String getPolinomio(final boolean progresivo) {
