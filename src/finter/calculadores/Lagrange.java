@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 
 import finter.Manager;
 import finter.Punto;
+import finter.gui.Textos;
 
 public class Lagrange {
 
@@ -51,9 +52,25 @@ public class Lagrange {
 		for(final BigDecimal coeficiente : map.keySet()) {
 			base = base.add(coeficiente);
 		}
-		return map.size() - (base.equals(BigDecimal.ZERO) ? 2 : 1);
+		return map.size() - ((BigDecimal.ZERO.compareTo(base) == 0) ? 2 : 1);
 	}
 	
+	public static String especializar(final BigDecimal buscado) {
+		final List<BigDecimal> terminos = new ArrayList<>();
+		for(final Entry<BigDecimal, List<BigDecimal>> termino : map.entrySet()) {
+			BigDecimal tempVal = termino.getKey();
+			for(final BigDecimal value : termino.getValue()) {
+				tempVal = tempVal.multiply(buscado.subtract(value));
+			}
+			terminos.add(tempVal);
+		}
+		BigDecimal retVal = BigDecimal.ZERO;
+		for(final BigDecimal termino : terminos) {
+			retVal = retVal.add(termino);
+		}
+		return retVal.toString();
+	}
+
 	public static String getPolinomio() {
 		final StringBuilder sb = new StringBuilder();
 		boolean primero = true;
@@ -73,24 +90,18 @@ public class Lagrange {
 		return sb.toString();
 	}
 
-	public static String especializar(final BigDecimal buscado) {
-		final List<BigDecimal> terminos = new ArrayList<>();
-		for(final Entry<BigDecimal, List<BigDecimal>> termino : map.entrySet()) {
-			BigDecimal tempVal = termino.getKey();
-			for(final BigDecimal value : termino.getValue()) {
-				tempVal = tempVal.multiply(buscado.subtract(value));
-			}
-			terminos.add(tempVal);
+	public static List<List<String>> getPasos(){
+		final List<List<String>> list = new ArrayList<>();
+		for(final String paso : pasos) {
+			final List<String> temp = new ArrayList<>();
+			temp.add(paso);
+			list.add(temp);
 		}
-		BigDecimal retVal = BigDecimal.ZERO;
-		for(final BigDecimal termino : terminos) {
-			retVal = retVal.add(termino);
-		}
-		return retVal.toString();
+		return list;
 	}
-	
-	public static List<String> getPasos(){
-		return pasos;
+
+	public static String[] getPasosHeader() {
+		return new String[] {Textos.PASO};
 	}
 
 }

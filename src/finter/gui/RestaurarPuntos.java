@@ -14,6 +14,7 @@ import finter.Manager;
 public class RestaurarPuntos extends JDialog{
 
 	public RestaurarPuntos(final DefaultTableModel dtm) {
+	
 		final JPanel panel = new JPanel();
 		this.setContentPane(panel);
 		panel.setLayout(null);

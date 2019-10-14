@@ -1,5 +1,6 @@
 package finter.gui;
 
+import java.util.List;
 import java.util.Map.Entry;
 
 import javax.swing.JButton;
@@ -13,11 +14,14 @@ public class ViewManager {
 	
 	public static void cargarTablaPasos(final DefaultTableModel dtm) {
 		dtm.setRowCount(0);
-		int i = 0;
-		for(final String paso : Procesador.getPasos()) {
-			dtm.addRow(new Object[] {paso});
-			i++;
+		dtm.setColumnIdentifiers(Procesador.getPasosHeader());
+		for(final List<String> paso : Procesador.getPasos()) {
+			dtm.addRow(getListAsArray(paso));
 		}
+	}
+	
+	private static String[] getListAsArray(final List<String> paso) {
+		return paso.toArray(new String[0]);
 	}
 
 	public static void refreshTable(final DefaultTableModel dtm) {

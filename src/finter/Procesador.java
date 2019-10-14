@@ -3,6 +3,7 @@ package finter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import finter.calculadores.Lagrange;
 import finter.calculadores.NGProgresivo;
@@ -16,15 +17,15 @@ public class Procesador {
 	
 	public static String getPolinomio(){
 		switch(metodo) {
-		case Textos.LAGRANGE: return Lagrange.getPolinomio();
-		case Textos.NG_P: return NGProgresivo.getPolinomio();
-		case Textos.NG_R: return NGRegresivo.getPolinomio();
-		default:
-	};
-	return "";
+			case Textos.LAGRANGE: return Lagrange.getPolinomio();
+			case Textos.NG_P: return NGProgresivo.getPolinomio();
+			case Textos.NG_R: return NGRegresivo.getPolinomio();
+			default:
+		};
+		return "";
 	}
 	
-	public static List<String> getPasos() {
+	public static List<List<String>> getPasos() {
 		switch(metodo) {
 			case Textos.LAGRANGE: return Lagrange.getPasos();
 			case Textos.NG_P: return NGProgresivo.getPasos();
@@ -63,6 +64,16 @@ public class Procesador {
 
 	public static String getGrado() {
 		return String.valueOf(grado);
+	}
+
+	public static String[] getPasosHeader() {
+		switch(metodo) {
+			case Textos.LAGRANGE: return Lagrange.getPasosHeader();
+			case Textos.NG_P: return NGProgresivo.getPasosHeader();
+			case Textos.NG_R: return NGRegresivo.getPasosHeader();
+			default:
+		};
+		return new String[]{};
 	}
 	
 }

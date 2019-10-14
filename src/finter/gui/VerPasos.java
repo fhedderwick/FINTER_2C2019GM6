@@ -30,8 +30,6 @@ public class VerPasos extends JDialog{
 			};
 		};
 		final DefaultTableModel dtm = new DefaultTableModel(0,0);
-		final String[] header = new String[] {Textos.PASO};
-		dtm.setColumnIdentifiers(header);
 		table.setModel(dtm);
 		table.setEditingColumn(0);
 		final JScrollPane scrollPane = new JScrollPane(table);

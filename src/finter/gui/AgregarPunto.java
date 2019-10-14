@@ -20,6 +20,7 @@ public class AgregarPunto extends JDialog{
 	private JTextField textField_1;
 
 	public AgregarPunto(final DefaultTableModel dtm) {
+		
 		setTitle(Textos.AGREGAR_PUNTO);
 		final JPanel panel = new JPanel();
 		this.setContentPane(panel);
@@ -86,6 +87,13 @@ public class AgregarPunto extends JDialog{
 		});
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(final ActionEvent e) {
+				//borrar desde aqui
+				Manager.agregarPunto(new Punto(new BigDecimal(1),new BigDecimal(1)));
+				Manager.agregarPunto(new Punto(new BigDecimal(3),new BigDecimal(3)));
+				Manager.agregarPunto(new Punto(new BigDecimal(4),new BigDecimal(13)));
+				Manager.agregarPunto(new Punto(new BigDecimal(5),new BigDecimal(37)));
+				Manager.agregarPunto(new Punto(new BigDecimal(7),new BigDecimal(151)));
+				//hasta aqui
 				ViewManager.restoreMainButtons();
 				dispose();
 			}
