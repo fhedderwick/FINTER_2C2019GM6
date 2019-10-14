@@ -2,10 +2,7 @@ package finter.calculadores;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import finter.Manager;
 import finter.Punto;
@@ -13,8 +10,8 @@ import finter.gui.Textos;
 
 public class Lagrange {
 
-	//TODO: cambiar map por lista de listas, pues si se repite coeficiente lo pisa
-	private static Map<BigDecimal,List<BigDecimal>> map = new HashMap<>();
+	private static List<BigDecimal> coefs = new ArrayList<>();
+	private static List<List<BigDecimal>> list = new ArrayList<>();
 	private static List<String> pasos = new ArrayList<>();
 	
 	public static int procesar() {
@@ -41,7 +38,8 @@ public class Lagrange {
 			}
 			pasos.add(sb.toString() + "=" + coeficiente);
 			
-			map.put(puntoExterno.getY().divide(coeficiente,2,BigDecimal.ROUND_HALF_EVEN),sustraendos);
+			coefs.add(puntoExterno.getY().divide(coeficiente,2,BigDecimal.ROUND_HALF_EVEN));
+			list.add(sustraendos);
 			i++;
 		}
 		
@@ -50,20 +48,22 @@ public class Lagrange {
 	
 	public static int getGrado() {
 		BigDecimal base = new BigDecimal(0);
-		for(final BigDecimal coeficiente : map.keySet()) {
+		for(final BigDecimal coeficiente : coefs) {
 			base = base.add(coeficiente);
 		}
-		return map.size() - ((BigDecimal.ZERO.compareTo(base) == 0) ? 2 : 1);
+		return coefs.size() - ((BigDecimal.ZERO.compareTo(base) == 0) ? 2 : 1);
 	}
 	
 	public static String especializar(final BigDecimal buscado) {
 		final List<BigDecimal> terminos = new ArrayList<>();
-		for(final Entry<BigDecimal, List<BigDecimal>> termino : map.entrySet()) {
-			BigDecimal tempVal = termino.getKey();
-			for(final BigDecimal value : termino.getValue()) {
+		int i =0;
+		for(final List<BigDecimal> termino : list) {
+			BigDecimal tempVal = coefs.get(i);
+			for(final BigDecimal value : termino) {
 				tempVal = tempVal.multiply(buscado.subtract(value));
 			}
 			terminos.add(tempVal);
+			i++;
 		}
 		BigDecimal retVal = BigDecimal.ZERO;
 		for(final BigDecimal termino : terminos) {
@@ -75,13 +75,15 @@ public class Lagrange {
 	public static String getPolinomio() {
 		final StringBuilder sb = new StringBuilder();
 		boolean primero = true;
-		for(final Entry<BigDecimal, List<BigDecimal>> termino : map.entrySet()) {
-			final BigDecimal coef = termino.getKey();
+		int i =0;
+		for(final List<BigDecimal> termino : list) {
+			final BigDecimal coef = coefs.get(i);
+			i++;
 			if(!primero && coef.compareTo(BigDecimal.ZERO) >= 0) {
 				sb.append("+");
 			}
 			sb.append(coef);
-			for(final BigDecimal value : termino.getValue()) {
+			for(final BigDecimal value : termino) {
 				sb.append("(x");
 				sb.append(value.compareTo(BigDecimal.ZERO) >= 0 ? "-" : "+");
 				sb.append(value.abs()).append(")");

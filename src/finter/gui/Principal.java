@@ -116,7 +116,7 @@ public class Principal {
 		
 		Manager.registerButton(button, true);
 		Manager.registerButton(btnNewButton, false);
-		Manager.registerButton(btnCalcularPolinomio, true);//TODO CAMBIAR A FALSE
+		Manager.registerButton(btnCalcularPolinomio, false);
 		Manager.registerButton(btnVerPasosDe, false);
 		Manager.registerButton(btnNewButton_1, false);
 		Manager.registerButton(btnEspecializarPolinomio, false);
